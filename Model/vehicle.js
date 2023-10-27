@@ -7,17 +7,17 @@ const vehicleSchema = new Schema({
   },
   make: {
     type: "String",
+    length:15,
     required: true,
   },
   model: {
     type: "String",
+    length:15,
     required: true,
   },
   year: {
     type: "Number",
     required: true,
-    maxlength: 4,
-    minlength: 4,
     message: "Invalid year",
   },
   price: {

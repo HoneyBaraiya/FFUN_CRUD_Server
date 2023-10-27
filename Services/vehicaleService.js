@@ -103,6 +103,32 @@ class vehicle {
                 count: { $sum: 1 },
               },
             },
+            {
+              $group:{
+                _id:null,
+                content:{$push:"$$ROOT"},
+                total:{$sum:"$count"},
+              }
+            },
+            {$unwind:"$content"},
+            {
+              $project:{
+                _id:"$content._id",
+                count:"$content.count",
+                percentage:{
+                  $round:[
+                    {
+                      $multiply:[
+                        {
+                          $divide:["$content.count","$total"]
+                        },
+                        100,
+                      ]
+                    },
+                  ]
+                }
+              }
+            }
           ],
         },
       });
